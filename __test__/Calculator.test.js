@@ -67,6 +67,21 @@ test('calculate from string: 4 * 3 + 2 = 14', () => {
     expect(calc.calculateFromString("4 * 3 + 2")).toBe(14);
 });
 
+test('calculate from string: 3 * 2 - 1 = 5', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("3 * 2 - 1")).toBe(5);
+});
+
+test('calculate from string: 3 * (2 - 3) = -3', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("3 * (2 - 3)")).toBe(-3);
+});
+
+
+test('calculate from string: 5^3 * 2 – 1 = 36903', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("5^3 * 2 – 1")).toBe(36903);
+});
 
 /*
 test('calculate from string: (14+2)^3 * 9 + 40 – 1 = 36903', () => {
