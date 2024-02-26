@@ -59,13 +59,29 @@ class Calculator {
         let splitByPlus = this.seperateByOperator(statement, "+");
 
         if (splitByPlus.length === 1) {
-            return Number(splitByPlus[0]);
+            let splitByMultiplication = this.seperateByOperator(statement, "*");
+
+            if (splitByMultiplication.length === 1) {
+                return Number(splitByPlus[0]);
+            }
+
+            let result = 1;
+            splitByMultiplication.forEach(split => {
+                result *= Number(this.calculateFromString(split));
+            });
+
+            return result;
+            
+            
         }
         
         let result = 0;
         splitByPlus.forEach(split => {
             result += Number(this.calculateFromString(split));
         });
+
+
+
         return result;
 
 

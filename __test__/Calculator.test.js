@@ -62,6 +62,12 @@ test('calculate from string: 4 + 2 = 6', () => {
     expect(calc.calculateFromString("4 + 2")).toBe(6);
 });
 
+test('calculate from string: 4 * 3 + 2 = 14', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("4 * 3 + 2")).toBe(14);
+});
+
+
 /*
 test('calculate from string: (14+2)^3 * 9 + 40 – 1 = 36903', () => {
     calc = new Calculator();
