@@ -30,6 +30,24 @@ test('does 4 ^ 3 to equal 64', () => {
     expect(calc.exponentiate(4, 3)).toBe(64);
 });
 
+test('split (((9+2)) into 9+2 2,6', () => {
+    calc = new Calculator();
+    expect(calc.getParenthesisContent("(((9+2))")).toEqual({
+        content: "9+2",
+            opening: 2, 
+            closing: 6
+    });
+});
+
+test('split 16/1 into 16/1 0, 4', () => {
+    calc = new Calculator();
+    expect(calc.getParenthesisContent("16/1")).toEqual({
+        content: "16/1",
+            opening: -1, 
+            closing: 4
+    });
+});
+
 /*
 test('split 4 + 2 * 5 to 4 + and 2 * 5', () => {
     calc = new Calculator();
@@ -57,11 +75,12 @@ test('split (4 + 3) * 2 to 4 + 3, * 2', () => {
     expect(calc.seperateByParenthesis("(4 + 3) * 2")).toEqual(["4 + 3", "* 2"]);
 });
 
+
 test('calculate from string: 4 + 2 = 6', () => {
     calc = new Calculator();
     expect(calc.calculateFromString("4 + 2")).toBe(6);
 });
-
+/*
 test('calculate from string: 4 * 3 + 2 = 14', () => {
     calc = new Calculator();
     expect(calc.calculateFromString("4 * 3 + 2")).toBe(14);

@@ -54,19 +54,64 @@ class Calculator {
         return splitByParenthesis; 
     }
 
+    getParenthesisContent(statement) {
+        let closingParenthesis = statement.length;
+        let openingParenthesis = -1;
+
+        for (let i = 0; i < statement.length; i++) {
+            if (statement[i] === ")" && closingParenthesis > i) {
+                closingParenthesis = i;
+            } else if (statement[i] === "(") {
+                openingParenthesis = i;
+            }
+        }
+        return {
+            content: statement.substring(openingParenthesis + 1, closingParenthesis),
+            opening: openingParenthesis, 
+            closing: closingParenthesis
+        }
+    }
+
     calculateFromString(statement) {
+        console.log(statement);
+
+        if (typeof(statement) != "string") {
+            return statement;
+        }
+        let parenthesisContent = this.getParenthesisContent(statement);
+        if (parenthesisContent.content != statement) {
+            console.log(parenthesisContent.content);
+            console.log(statement);
+            return this.calculateFromString(statement.substring(0, parenthesisContent.opening)) + 
+            this.calculateFromString(parenthesisContent.content) +
+            this.calculateFromString(statement.substring, parenthesisContent.closing + 1);
+        }
+
         let seperators = ["+", "-", "*", "^"];
         let methods = [this.add, this.subtract, this.multiply, this.exponentiate];
 
-        let result = 0;
-
-        let substatement = statement;
+        let result = "";
 
         for (let i = seperators.length; i >= 0; i--) {
-            let splitted = this.seperateByOperator(substatement, seperators[i]);
+            console.log(statement);
+            let splitted = this.seperateByOperator(statement, seperators[i]);
+
+            if (splitted.length > 1) {
+                console.log("split");
+                console.log(seperators[i]);
+                console.log(methods[i]);
+                console.log(methods[i](12,4));
+                let result = this.calculateFromString(splitted[0]);
+                for (let j = 1; j <= splitted.length; j++) {
+                    //result = methods[i](result, this.calculateFromString(splitted[j]));
+                    console.log(result);
+                    console.log(splitted[j]);
+                    result = methods[i](result, this.calculateFromString(splitted[j]));
+                }
+            }
         }
 
-        return substatement;
+        return result;
     }
 
     calculateFromString2(statement) {
