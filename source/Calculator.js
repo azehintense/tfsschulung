@@ -1,9 +1,5 @@
 class Calculator {
     add(first, second) {
-        console.log("add");
-        console.log(first);
-        console.log(second);
-        console.log(first + second);
         return first + second;
     }
     
@@ -13,6 +9,10 @@ class Calculator {
 
     multiply(first, second) {
         return first * second;
+    }
+
+    divide(first, second) {
+        return first / second;
     }
 
     exponentiate(first, second) {
@@ -33,7 +33,10 @@ class Calculator {
     */
 
     seperateByOperator(statement, operator) {
-
+        //TODO: Testfall
+        if (!isNaN(statement)) {
+            return [statement];
+        }
         let splitByOperator = statement.split(operator);
 
         for (let i = 0; i < splitByOperator.length; i++) {
@@ -78,137 +81,48 @@ class Calculator {
 
     calculateFromString(statement) {
         console.log(statement);
-
         if (!isNaN(statement)) {
+            console.log("NUMBER");
             return Number(statement);
         }
 
         let parenthesisContent = this.getParenthesisContent(statement);
         if (parenthesisContent.content != statement) {
-            console.log(parenthesisContent.content);
-            console.log(statement);
-            return this.calculateFromString(statement.substring(0, parenthesisContent.opening)) + 
-            this.calculateFromString(parenthesisContent.content) +
-            this.calculateFromString(statement.substring, parenthesisContent.closing + 1);
+            let beforeParenthesis = statement.substring(0, parenthesisContent.opening);
+            let evaluatedParenthesis = this.calculateFromString(parenthesisContent.content)
+            let afterParenthesis = statement.substring(parenthesisContent.closing + 1);
+            return this.calculateFromString(beforeParenthesis + evaluatedParenthesis + afterParenthesis);
         }
 
-        let seperators = ["+", "-", "*", "^"];
-        let methods = [this.add, this.subtract, this.multiply, this.exponentiate];
+        let seperators = ["^", "*", "/", "-", "+"];
+        let methods = [this.exponentiate, this.multiply, this.divide, this.subtract, this.add];
 
-        let result = "";
-        for (let i = seperators.length; i >= 0; i--) {
+        console.log(statement);
+        let result = String(statement);
+        for (let i = seperators.length - 1; i >= 0; i--) {
             console.log(statement);
+            console.log(seperators[i]);
             let splitted = this.seperateByOperator(statement, seperators[i]);
-
-            if (splitted.length > 1) {
-                console.log("split");
+            splitted = splitted.filter(n => n);
+            console.log(splitted);
+            if (splitted.length > 1 && !seperators.includes(splitted[0][splitted[0].length - 1])) {
+                console.log(splitted);
                 console.log(seperators[i]);
-                console.log(methods[i]);
-                console.log(methods[i](12,4));
                 result = this.calculateFromString(splitted[0]);
                 console.log(splitted);
                 for (let j = 1; j < splitted.length; j++) {
-                    //result = methods[i](result, this.calculateFromString(splitted[j]));
-                    console.log(result);
-                    console.log(splitted[j]);
+                    console.log("METHOD");
+                    console.log(methods[i]);           
                     result = methods[i](result, this.calculateFromString(splitted[j]));
+                    console.log(result);
                 }
+                statement = result;
             }
+        
         }
-
-        /*
-        if (result === "") {
-            if (!isNaN(statement)) {
-                result = Number(statement);
-            }
-        }
-        */
-        console.log(result);
 
         return result;
        
-    }
-
-    calculateFromString2(statement) {
-
-        let splitByPlus = this.seperateByOperator(statement, "+");
-
-        if (splitByPlus.length === 1) {
-            let splitBySubtraction = this.seperateByOperator(statement, "-");
-
-            console.log(splitBySubtraction);
-
-            if (splitBySubtraction.length === 1) {
-                let splitByMultiplication = this.seperateByOperator(statement, "*");
-
-                console.log(splitByMultiplication);
-
-                if (splitByMultiplication.length === 1) {
-                    let splitByExponential = this.seperateByOperator(statement, "^");
-
-
-                    if (splitByExponential.length === 1) {
-                        return Number(splitByPlus[0]);
-                    } else {
-
-
-                        let splitByParenthesis = this.seperateByParenthesis(statement);
-
-                        if (splitByParenthesis.length === 1) {
-                            let result = Number(this.calculateFromString(splitByExponential[0]));
-                            console.log(splitByExponential);
-                            console.log(result);
-                            for (let i = 1; i < splitByExponential.length; i++) {
-                                console.log(result);
-                                result = Math.pow(result, Number(this.calculateFromString(splitByExponential[i])));
-                            }
-                            console.log("result:" + result);
-                        } else {
-                            let result = 1;
-                            splitByParenthesis.forEach(split => {
-                                result *= this.calculateFromString(split);
-                            });
-                            return result;
-                        }
-
-
-                        
-                    }
-
-                    
-                } else {
-                    let result = 1;
-                    splitByMultiplication.forEach(split => {
-                        result *= Number(this.calculateFromString(split));
-                    });
-        
-                    console.log("result:" + result);
-                    return result;
-                }
-    
-                
-            } else {
-                let result = Number(this.calculateFromString(splitBySubtraction[0]));
-                console.log(splitBySubtraction);
-                console.log(result);
-                for (let i = 1; i < splitBySubtraction.length; i++) {
-                    console.log(result);
-                    result -= Number(this.calculateFromString(splitBySubtraction[i]));
-                }
-                console.log("result:" + result);
-                return result;
-            }           
-            
-        }
-        
-        let result = 0;
-        splitByPlus.forEach(split => {
-            result += Number(this.calculateFromString(split));
-        });
-
-        console.log("result:" + result);
-
-        return result;        
     }
 }
 module.exports = Calculator;
