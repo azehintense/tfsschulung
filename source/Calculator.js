@@ -1,5 +1,9 @@
 class Calculator {
     add(first, second) {
+        console.log("add");
+        console.log(first);
+        console.log(second);
+        console.log(first + second);
         return first + second;
     }
     
@@ -75,9 +79,10 @@ class Calculator {
     calculateFromString(statement) {
         console.log(statement);
 
-        if (typeof(statement) != "string") {
-            return statement;
+        if (!isNaN(statement)) {
+            return Number(statement);
         }
+
         let parenthesisContent = this.getParenthesisContent(statement);
         if (parenthesisContent.content != statement) {
             console.log(parenthesisContent.content);
@@ -91,7 +96,6 @@ class Calculator {
         let methods = [this.add, this.subtract, this.multiply, this.exponentiate];
 
         let result = "";
-
         for (let i = seperators.length; i >= 0; i--) {
             console.log(statement);
             let splitted = this.seperateByOperator(statement, seperators[i]);
@@ -101,8 +105,9 @@ class Calculator {
                 console.log(seperators[i]);
                 console.log(methods[i]);
                 console.log(methods[i](12,4));
-                let result = this.calculateFromString(splitted[0]);
-                for (let j = 1; j <= splitted.length; j++) {
+                result = this.calculateFromString(splitted[0]);
+                console.log(splitted);
+                for (let j = 1; j < splitted.length; j++) {
                     //result = methods[i](result, this.calculateFromString(splitted[j]));
                     console.log(result);
                     console.log(splitted[j]);
@@ -111,7 +116,17 @@ class Calculator {
             }
         }
 
+        /*
+        if (result === "") {
+            if (!isNaN(statement)) {
+                result = Number(statement);
+            }
+        }
+        */
+        console.log(result);
+
         return result;
+       
     }
 
     calculateFromString2(statement) {

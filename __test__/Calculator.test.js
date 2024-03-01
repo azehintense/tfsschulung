@@ -75,11 +75,17 @@ test('split (4 + 3) * 2 to 4 + 3, * 2', () => {
     expect(calc.seperateByParenthesis("(4 + 3) * 2")).toEqual(["4 + 3", "* 2"]);
 });
 
+test('calculate from string: 77', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("77")).toBe(77);
+});
 
 test('calculate from string: 4 + 2 = 6', () => {
     calc = new Calculator();
     expect(calc.calculateFromString("4 + 2")).toBe(6);
 });
+/*
+
 /*
 test('calculate from string: 4 * 3 + 2 = 14', () => {
     calc = new Calculator();
