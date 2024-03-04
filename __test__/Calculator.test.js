@@ -48,17 +48,6 @@ test('split 16/1 into 16/1 0, 4', () => {
     });
 });
 
-/*
-test('split 4 + 2 * 5 to 4 + and 2 * 5', () => {
-    calc = new Calculator();
-    expect(calc.seperateByPlus("4 + 2 * 5")).toEqual(["4", "2 * 5"]);
-});
-
-test('split 8 * 3 + 2 + 5 to 8 * 3, 2, 5', () => {
-    calc = new Calculator();
-    expect(calc.seperateByPlus("8 * 3 + 2 + 5")).toEqual(["8 * 3", "2", "5"]);
-});
-*/
 test('split 487', () => {
     calc = new Calculator();
     expect(calc.seperateByOperator("487")).toEqual(["487"]);
@@ -119,14 +108,37 @@ test('calculate from string: 3 * (2 - 3) = -3', () => {
     expect(calc.calculateFromString("3 * (2 - 3)")).toBe(-3);
 });
 
-/*
-test('calculate from string: 5^3 * 2 – 1 = 249', () => {
+test('calculate from string: 5^3 = 125', () => {
     calc = new Calculator();
-    expect(calc.calculateFromString("5^3 * 2 – 1")).toBe(249);
+    expect(calc.calculateFromString("5^3")).toBe(125);
 });
 
-test('calculate from string: (14+2)^3 * 9 + 40 – 1 = 36903', () => {
+test('calculate from string: 56 / 7 = 8', () => {
     calc = new Calculator();
-    expect(calc.calculateFromString("(14+2)^3 * 9 + 40 – 1")).toBe(36903);
+    expect(calc.calculateFromString("56 / 7")).toBe(8);
 });
-*/
+
+test('calculate from string: 5 ^ 3 * 2 - 1 = 249', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("5 ^ 3 * 2 - 1")).toBe(249);
+});
+
+test('calculate from string: 16^3 = 4096', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("16^3")).toBe(4096);
+});
+
+test('calculate from string: (14+2)^3 * 9 = 36864', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("(14+2)^3 * 9")).toBe(36864);
+});
+
+test('calculate from string: (14+2)^3 * 9 + 40 = 36904', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("(14+2)^3 * 9 + 40")).toBe(36904);
+});
+
+test('calculate from string: (14+2)^3 * 9 + 40 - 1 = 36903', () => {
+    calc = new Calculator();
+    expect(calc.calculateFromString("(14+2)^3 * 9 + 40 - 1")).toBe(36903);
+});
