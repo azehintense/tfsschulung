@@ -35,21 +35,6 @@ class Calculator {
         return splitByOperator;
     }
 
-    seperateByParenthesis(statement) {
-
-        let splitByParenthesis = statement.split(")");
-
-        for (let i = 0; i < splitByParenthesis.length; i++) {
-            if (splitByParenthesis[i][0].trim() === "(") {
-                splitByParenthesis[i] = splitByParenthesis[i].trim().substring(1);
-            }
-            splitByParenthesis[i] = splitByParenthesis[i].trim();
-        
-        }
-
-        return splitByParenthesis; 
-    }
-
     getParenthesisContent(statement) {
         let closingParenthesis = statement.length;
         let openingParenthesis = -1;
