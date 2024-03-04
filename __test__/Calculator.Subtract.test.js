@@ -1,11 +1,25 @@
 const Calculator = require('../source/Calculator');
 
 test('does 5 - 3 to equal 2', () => {
+    //Arrange
     calc = new Calculator();
-    expect(calc.subtract(5, 3)).toBe(2);
+    let expected = 2;
+
+    //Act
+    let result = calc.subtract(5, 3);
+
+    //Assert
+    expect(result).toBe(expected);
 });
 
 test('does 1 - 7 to equal -6', () => {
+    //Arrange
     calc = new Calculator();
-    expect(calc.subtract(1, 7)).toBe(-6);
+    let expected = -6;
+
+    //Act
+    let result = calc.subtract(1, 7);
+
+    //Assert
+    expect(result).toBe(expected);
 });

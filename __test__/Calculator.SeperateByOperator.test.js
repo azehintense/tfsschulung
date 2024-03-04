@@ -1,16 +1,37 @@
 const Calculator = require('../source/Calculator');
 
 test('split 487', () => {
+    //Arrange
     calc = new Calculator();
-    expect(calc.seperateByOperator("487")).toEqual(["487"]);
+    let expected = ["487"];
+
+    //Act
+    let result = calc.seperateByOperator("487");
+
+    //Assert
+    expect(result).toEqual(expected);
 });
 
 test('split 4 + 2 * 5 to 4 + and 2 * 5', () => {
+    //Arrange
     calc = new Calculator();
-    expect(calc.seperateByOperator("4 + 2 * 5", "+")).toEqual(["4", "2 * 5"]);
+    let expected = ["4", "2 * 5"];
+
+    //Act
+    let result = calc.seperateByOperator("4 + 2 * 5", "+");
+
+    //Assert
+    expect(result).toEqual(expected);
 });
 
 test('split 8 * 3 + 2 + 5 to 8 * 3, 2, 5', () => {
+    //Arrange
     calc = new Calculator();
-    expect(calc.seperateByOperator("8 * 3 + 2 + 5", "+")).toEqual(["8 * 3", "2", "5"]);
+    let expected = ["8 * 3", "2", "5"];
+
+    //Act
+    let result = calc.seperateByOperator("8 * 3 + 2 + 5", "+");
+
+    //Assert
+    expect(result).toEqual(expected);
 });
